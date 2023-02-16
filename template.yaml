@@ -1,0 +1,26 @@
+env:
+- DEST_DIR=intellij-community
+- ARCHIVE_NAME=intellij-community
+workspaces:
+- name: dev
+  checkouts:
+  - path: intellij-community
+    manifest:
+      overlays:
+      - content: |
+          hooks:
+            post-checkout:
+              cmd: |
+                cd $HOME
+                set -ex
+                RESTORE_DIR="$HOME/.restore.tmp"
+                if [[ -d "$DEST_DIR/.git" ]]; then
+                  echo "Folder $DEST_DIR exists, bail out."
+                  exit 0
+                fi
+                rm -fr "$RESTORE_DIR"
+                mkdir -p "$RESTORE_DIR"
+                cs ar restore -C "$RESTORE_DIR" "$ARCHIVE_NAME"
+                find "$RESTORE_DIR" -name '*.tar.gz' -exec tar -zxf \{\} \;
+                find "$RESTORE_DIR" -name '*.tar' -exec tar -xf \{\} \;
+                rm -fr "$RESTORE_DIR"
