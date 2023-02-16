@@ -1,3 +1,6 @@
+env:
+- DEST_DIR=intellij-community
+- ARCHIVE_NAME=intellij-community
 workspaces:
 - name: dev
   checkouts:
