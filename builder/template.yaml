@@ -9,7 +9,7 @@ workspaces:
       - content: |
           jobs:
             builder:
-              schedule: @daily
+              schedule: '@daily'
               run:
                 cmd: ./builder/intellij-community.sh
   base_snapshot: intellij-base
