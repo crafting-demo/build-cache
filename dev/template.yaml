@@ -1,0 +1,10 @@
+workspaces:
+- name: dev
+  checkouts:
+  - path: intellij-community
+    manifest:
+      overlays:
+      - content: |
+          hooks:
+            post-checkout:
+              cmd: ./dev/restore.sh

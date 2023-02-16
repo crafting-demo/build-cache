@@ -1,0 +1,15 @@
+workspaces:
+- name: builder
+  checkouts:
+  - path: builder
+    repo:
+      git: https://github.com/crafting-demo/build-cache
+    manifest:
+      overlays:
+      - content: |
+          jobs:
+            builder:
+              schedule: @hourly
+              run:
+                cmd: ./builder/intellij-community.sh
+  base_snapshot: intellij-base
